@@ -10,28 +10,28 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     val secretNumber = SecretNumber()
-
+    val TAG :String = MainActivity::class.java.simpleName
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        Log.d("MainActivity", "secret: " + secretNumber.secret)
+        Log.d(TAG, "secret: " + secretNumber.secret)
     }
 
     fun check (view : View) {
         var n = ed_number.text.toString().toInt()
-        Log.d("MainActivity", "ed_number " + n)
+        Log.d(TAG, "ed_number " + n)
         val diff :Int = secretNumber.validate(n)
-        var message = "Yes, you got it"
+        var message = getString(R.string.yes_you_got_it)
         if (diff < 0) {
-            message = "Bigger"
+            message = getString(R.string.bigger)
         } else if (diff > 0){
-            message = "Smaller"
+            message = getString(R.string.smaller)
         }
 //        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
         AlertDialog.Builder(this)
-                .setTitle("Message")
+                .setTitle(getString(R.string.dialog_title))
                 .setMessage(message)
-                .setPositiveButton("ok", null)
+                .setPositiveButton(getString(R.string.ok), null)
                 .show()
     }
 }
